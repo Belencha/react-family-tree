@@ -2,6 +2,13 @@
 
 A preliminary proof-of-concept for a React-based HTML tree structure builder. Primarily conceived for family trees, but applicable to all kinds of organizational charts where a tree structure is appropriate. A good exercise in recursive data structures in React.
 
+# How to contribute
+
+```
+npm install
+npm run start
+```
+
 ## Example / Usage
 
 See the example at [https://craigmc.info/react-family-tree](https://craigmc.info/react-family-tree)
@@ -19,8 +26,8 @@ See the example at [https://craigmc.info/react-family-tree](https://craigmc.info
 - Delete nodes
 - Save, reload, export to HTML.
 - Display a set number of levels.
--- This will permit a mobile-friendly mode that displays one level at a time.
--- Also, a nice SEO-friendly paradigm would be to pre-render a separate one-level page for every node.
+  -- This will permit a mobile-friendly mode that displays one level at a time.
+  -- Also, a nice SEO-friendly paradigm would be to pre-render a separate one-level page for every node.
 - New relationships: co-parents, anything else that comes to mind.
 
 ## But how?
