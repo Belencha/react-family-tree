@@ -42,5 +42,3 @@ export const TreeHeader = styled.h1`
   max-width: 100%;
   box-sizing: border-box;
 `;
-
-export const VisuallyHiddenSubheader = VisuallyHidden.withComponent("h2");

@@ -7,7 +7,7 @@ import * as CommonStyles from "./../TreeStylesShared";
 import * as TreeDimensionCalc from "./TreeDimensionCalc";
 
 const TreeHeader = CommonStyles.TreeHeader;
-const VisuallyHiddenHeader = CommonStyles.VisuallyHidden.withComponent("h1");
+const VisuallyHidden = CommonStyles.VisuallyHidden;
 
 const TreeTrunk = styled.article`
   display: inline-block;
@@ -133,7 +133,9 @@ class TreeMember extends React.Component {
     if (this.getChildCount() === 0) return null;
     return (
       <TreeChildrenSection>
-        <VisuallyHiddenHeader>Children</VisuallyHiddenHeader>
+        <VisuallyHidden>
+          <h1>Children</h1>
+        </VisuallyHidden>
         {this.props.partners.map((parent, i) => (
           <TreeListChildren
             key={parent.id + "_children_"}

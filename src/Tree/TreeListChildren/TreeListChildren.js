@@ -118,7 +118,7 @@ class TreeListChildren extends React.Component {
       <ChildList
         key={"childlist_" + this.props.parent.id}
         {...this.props.linkprops}
-        innerRef={this.listRef}
+        ref={this.listRef}
       >
         {this.props.members.map((member) => (
           <li key={member.id}>

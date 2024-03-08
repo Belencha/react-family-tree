@@ -3,7 +3,7 @@ import styled from "styled-components";
 import TreeMember from "./../TreeMember/TreeMember";
 import * as CommonStyles from "./../TreeStylesShared";
 
-const VisuallyHiddenHeader = CommonStyles.VisuallyHidden.withComponent("h1");
+const VisuallyHidden = CommonStyles.VisuallyHidden;
 
 const TreePartnerSection = styled.section`
   position: relative;
@@ -43,7 +43,9 @@ class TreeListPartners extends React.Component {
     if (this.props.members.length === 0) return null;
     return (
       <TreePartnerSection>
-        <VisuallyHiddenHeader>Partners</VisuallyHiddenHeader>
+        <VisuallyHidden>
+          <h1>Partners</h1>
+        </VisuallyHidden>
         <PartnerList>
           {this.props.members.map((member) => (
             <li key={"partner_" + member.id}>
