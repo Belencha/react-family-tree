@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import * as CommonStyles from './../TreeStylesShared';
+import * as CommonStyles from "./../TreeStylesShared";
 
 const TreeNodeHeader = CommonStyles.TreeHeader;
 
@@ -52,7 +52,7 @@ const TreeNodeActions = styled.section`
 
   & > h1:after {
     display: block;
-    content: '☰';
+    content: "☰";
     text-indent: 0;
     position: absolute;
     top: 0;
@@ -84,7 +84,6 @@ const TreeNodeActions = styled.section`
 `;
 
 class TreeNodeMenu extends React.Component {
-
   constructor(props) {
     super(props);
     this.handleToggleEditable = this.handleToggleEditable.bind(this);
@@ -114,25 +113,53 @@ class TreeNodeMenu extends React.Component {
   }
 
   render() {
-    if (this.props.editable) return (
-      <input type="submit" onClick={this.handleToggleEditable} value="Done Editing" />
-    );
+    if (this.props.editable)
+      return (
+        <input
+          type="submit"
+          onClick={this.handleToggleEditable}
+          value="Done Editing"
+        />
+      );
     return [
       //<a key="action_move" href="#" className="move">Move</a>,
       <TreeNodeActions key="action_list" className="tree_actions">
         <TreeNodeHeader>Edit</TreeNodeHeader>
         <ul>
-          <li><a href="#" className="edit" onClick={this.handleToggleEditable}>Edit</a></li>
-          {!this.props.allowPartners || <li><a href="#" className="add_partner" onClick={this.handleAddPartner}>Add Partner</a></li>}
-          {this.props.partners.map(partner =>
-            <li key={'addchild_' + partner.id}><a href="#{partner.id}" className="add_child" onClick={(e) => {this.handleAddChild(e, partner.id)}}>Add a child with {partner.name}</a></li>
+          <li>
+            <button className="edit" onClick={this.handleToggleEditable}>
+              Edit
+            </button>
+          </li>
+          {!this.props.allowPartners || (
+            <li>
+              <button className="add_partner" onClick={this.handleAddPartner}>
+                Add Partner
+              </button>
+            </li>
           )}
-          <li><a href="#" className="member_delete" onClick={this.handleDelete}>Delete</a></li>
+          {this.props.partners.map((partner) => (
+            <li key={"addchild_" + partner.id}>
+              <a
+                href="#{partner.id}"
+                className="add_child"
+                onClick={(e) => {
+                  this.handleAddChild(e, partner.id);
+                }}
+              >
+                Add a child with {partner.name}
+              </a>
+            </li>
+          ))}
+          <li>
+            <button className="member_delete" onClick={this.handleDelete}>
+              Delete
+            </button>
+          </li>
         </ul>
-      </TreeNodeActions>
+      </TreeNodeActions>,
     ];
   }
-
 }
 
 export default TreeNodeMenu;

@@ -1,16 +1,15 @@
-import React, { Component } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const TreenodeWidth = 14;
 export const TreenodeMargin = 0.5;
 export const TreenodeHalfwidth = TreenodeWidth / 2 + TreenodeMargin;
-export const BorderWidthUnits = '2px';
-export const BorderRadiusUnits = '0.75em';
+export const BorderWidthUnits = "2px";
+export const BorderRadiusUnits = "0.75em";
 
 export const LinkProperties = css`
-  content:" ";
+  content: " ";
   position: absolute;
-  border: ${BorderWidthUnits} solid #BD8565;
+  border: ${BorderWidthUnits} solid #bd8565;
   border-radius: ${BorderRadiusUnits};
   box-sizing: border-box;
   z-index: 1;
@@ -44,6 +43,4 @@ export const TreeHeader = styled.h1`
   box-sizing: border-box;
 `;
 
-export const VisuallyHiddenSubheader = VisuallyHidden.withComponent('h2');
-
-//export const TreeSubheader = TreeHeader.withComponent('h1');
+export const VisuallyHiddenSubheader = VisuallyHidden.withComponent("h2");
