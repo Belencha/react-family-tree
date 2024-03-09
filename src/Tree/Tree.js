@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import TreeMember from "./TreeMember/TreeMember";
 import TreeParser from "./TreeParser";
 
-const Tree = (props) => {
+const Tree = ({ datalist, root }) => {
   // normalize all possible tree representations into single nested data object
-  const parser = new TreeParser(props.datalist, props.root);
+  const parser = new TreeParser(datalist, root);
   const memberlist = parser.getMemberlist();
 
   const [state, setState] = useState({
     memberlist: memberlist,
-    rootid: props.root,
+    rootid: root,
     membercount: parseInt(memberlist.length),
   });
 
