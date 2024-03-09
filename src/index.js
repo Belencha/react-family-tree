@@ -1,13 +1,7 @@
-import React from "react";
 import ReactDOM from "react-dom";
-import Tree from "./Tree/Tree";
-import { simpsonsTree } from "./data";
-import "./index.css";
 import registerServiceWorker from "./registerServiceWorker";
+import App from "./App";
 
-ReactDOM.render(
-  <Tree root="abe" datalist={JSON.parse(JSON.stringify(simpsonsTree))} />,
-  document.getElementById("root")
-);
+ReactDOM.render(<App />, document.getElementById("root"));
 
 registerServiceWorker();
