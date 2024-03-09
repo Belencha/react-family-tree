@@ -1,80 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import TreeMember from "./TreeMember/TreeMember";
 import TreeParser from "./TreeParser";
 
-class Tree extends React.Component {
-  constructor(props) {
-    super(props);
+const Tree = (props) => {
+  // normalize all possible tree representations into single nested data object
+  const parser = new TreeParser(props.datalist, props.root);
+  const memberlist = parser.getMemberlist();
 
-    // normalize all possible tree representations into single nested data object
-    const parser = new TreeParser(props.datalist, props.root);
-    this.memberlist = parser.getMemberlist();
-    this.nextMemberId = parser.getNextMemberId();
-    this.state = {
-      memberlist: this.memberlist,
-      rootid: this.props.root,
-      membercount: parseInt(this.memberlist.length),
-    };
-
-    // bind handlers
-    this.handleAddPartner = this.handleAddPartner.bind(this);
-    this.handleAddChild = this.handleAddChild.bind(this);
-    this.handleMemberEdit = this.handleMemberEdit.bind(this);
-    this.handleMemberDelete = this.handleMemberDelete.bind(this);
-  }
+  const [state, setState] = useState({
+    memberlist: memberlist,
+    rootid: props.root,
+    membercount: parseInt(memberlist.length),
+  });
 
   // SIMPLE GETTERS //
-
-  getNextMemberId(memberlist) {
-    if (memberlist === undefined) memberlist = this.state.memberlist;
+  const getNextMemberId = (memberlist) => {
+    if (memberlist === undefined) memberlist = state.memberlist;
     let ids = Object.keys(memberlist);
     let append = 1;
     let prepend = "new_member_";
     while (ids.indexOf(prepend + append) >= 0) append++;
     return prepend + append;
-  }
+  };
 
-  getNewMember(name, id) {
+  const getNewMember = (name, id) => {
     return { id: id, name: name, partners: [], children: [] };
-  }
+  };
 
   // HANDLERS //
-
-  handleMemberEdit(member_id, data) {
-    this.setState(function (prev_state, props) {
+  const handleMemberEdit = (member_id, data) => {
+    setState((prev_state) => {
       const memberlist = { ...prev_state.memberlist };
       memberlist[member_id].name = data.name;
       return { memberlist: memberlist };
     });
-  }
+  };
 
-  handleMemberDelete(member_id) {
-    this.setState(function (prev_state, props) {
+  const handleMemberDelete = (member_id) => {
+    setState((prev_state) => {
       const memberlist = { ...prev_state.memberlist };
       const member = memberlist[member_id];
       if (member.partners != null && member.partners.length > 0)
         alert("Cannot delete a member with partners");
       else alert("Delete capabilities still pending");
     });
-  }
+  };
 
-  handleAddPartner(root_id) {
-    this.setState(function (prev_state, props) {
+  const handleAddPartner = (root_id) => {
+    setState((prev_state) => {
       let memberlist = { ...prev_state.memberlist };
-      let new_id = this.getNextMemberId(memberlist);
-      let new_member = this.getNewMember("New Partner", new_id);
+      let new_id = getNextMemberId(memberlist);
+      let new_member = getNewMember("New Partner", new_id);
       memberlist[new_member.id] = new_member;
       memberlist[root_id].partners.push(new_member);
       memberlist[root_id].children[new_member.id] = [];
       return { memberlist: memberlist };
     });
-  }
+  };
 
-  handleAddChild(root_id, partner_id) {
-    this.setState(function (prev_state, props) {
+  const handleAddChild = (root_id, partner_id) => {
+    setState((prev_state) => {
       let memberlist = { ...prev_state.memberlist };
-      let new_id = this.getNextMemberId(memberlist);
-      let new_member = this.getNewMember("New Child", new_id);
+      let new_id = getNextMemberId(memberlist);
+      let new_member = getNewMember("New Child", new_id);
       memberlist[new_member.id] = new_member;
       if (!Array.isArray(memberlist[root_id].children[partner_id])) {
         memberlist[root_id].children[partner_id] = [];
@@ -82,24 +70,19 @@ class Tree extends React.Component {
       memberlist[root_id].children[partner_id].push(new_member);
       return { memberlist: memberlist };
     });
-  }
+  };
 
   // RENDERERS //
-
-  render() {
-    const ret = (
-      <TreeMember
-        {...this.state.memberlist[this.state.rootid]}
-        onAddPartner={this.handleAddPartner}
-        onAddChild={this.handleAddChild}
-        onEdit={this.handleMemberEdit}
-        onDelete={this.handleMemberDelete}
-        parentPosition={this.state.position}
-      />
-    );
-
-    return ret;
-  }
-}
+  return (
+    <TreeMember
+      {...state.memberlist[state.rootid]}
+      onAddPartner={handleAddPartner}
+      onAddChild={handleAddChild}
+      onEdit={handleMemberEdit}
+      onDelete={handleMemberDelete}
+      parentPosition={state.position}
+    />
+  );
+};
 
 export default Tree;
